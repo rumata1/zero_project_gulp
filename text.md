@@ -5,6 +5,5 @@ src
 |-fonts
 |-img
 |-js
-|-libs
 |-sass
 |-index.html
