@@ -8,7 +8,7 @@ const gulp = require('gulp'),
       cssnano = require('gulp-cssnano'),
       rename = require('gulp-rename'),
       imagemin = require('gulp-imagemin'),
-      pngquant = require('imagemin-pngquant'),
+      pngquant = require('pngquant'),
       cache = require('gulp-cache'),
       cleanCSS = require('gulp-clean-css');
 
