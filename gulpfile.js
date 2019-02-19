@@ -29,7 +29,6 @@ function watch(){
 	gulp.watch('./src/*.html').on('change', browserSync.reload);
 	gulp.watch('./src/js/**/*.js').on('change', browserSync.reload);
 	gulp.watch('./src/sass/style.sass', gulp.series('sass'));
-	
 }
 
 function sass_style(){
@@ -69,20 +68,18 @@ function img_min(){
 function build_project(){
 	return new Promise((resolve,reject)=>{
 		let buildCss = gulp.src(['src/css/*.css'])
-
 		.pipe(gulp.dest('build/css'))
 
-		var buildFonts = gulp.src('src/fonts/**/*')
+		let buildFonts = gulp.src('src/fonts/**/*')
 		.pipe(gulp.dest('build/fonts'))
 
-		var buildJs = gulp.src('src/js/script.js')
+		let buildJs = gulp.src('src/js/script.js')
 		.pipe(gulp.dest('build/js'))
 
-		var buildHtml = gulp.src('src/*.html')
+		let buildHtml = gulp.src('src/*.html')
 		.pipe(gulp.dest('build'));
 
 		resolve();
-
 	});
 }
 
