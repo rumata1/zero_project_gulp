@@ -66,7 +66,6 @@ function img_min(){
 		.pipe(gulp.dest('build/img'));	
 }
 
-
 function build_project(){
 	return new Promise((resolve,reject)=>{
 		let buildCss = gulp.src(['src/css/*.css'])
@@ -87,7 +86,6 @@ function build_project(){
 	});
 }
 
-
 /*Таски*/
 
 gulp.task('sass', gulp.series(sass_style, css_style));
@@ -99,9 +97,6 @@ gulp.task('clear', function () {
 })
 
 gulp.task('img', img_min);
-
 gulp.task('build', gulp.series('clean', 'styles', 'scripts', 'img', build_project));
 gulp.task('watch', watch);
-
 gulp.task('default', gulp.parallel(watch));
-
