@@ -27,8 +27,8 @@ function watch(){
     });
 	
 	gulp.watch('./src/*.html').on('change', browserSync.reload);
+	gulp.watch('./src/js/**/*.js').on('change', browserSync.reload);
 	gulp.watch('./src/sass/style.sass', gulp.series('sass'));
-	gulp.watch(['./src/js/libs/**/*.js','./src/js/plugins/**/*.js'], gulp.series('scripts'));
 	
 }
 
@@ -49,11 +49,10 @@ function css_style(){
 }
 
 function js_scripts(){
-	return gulp.src(['./src/js/libs/**/*.js','./src/js/plugins/**/*.js'])
+	return gulp.src(['./src/js/**/*.js'])
 		.pipe(concat('script.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('./src/js'))
-		.pipe(browserSync.stream());
+		.pipe(gulp.dest('src/js'));
 }
 
 function img_min(){
@@ -69,21 +68,25 @@ function img_min(){
 
 
 function build_project(){
-	let buildCss = gulp.src([
-		'src/css/*.css'
-	])
-	
-	.pipe(gulp.dest('build/css'))
+	return new Promise((resolve,reject)=>{
+		let buildCss = gulp.src(['src/css/*.css'])
 
-	var buildFonts = gulp.src('src/fonts/**/*')
-	.pipe(gulp.dest('build/fonts'))
+		.pipe(gulp.dest('build/css'))
 
-	var buildJs = gulp.src('src/js/**/*')
-	.pipe(gulp.dest('build/js'))
+		var buildFonts = gulp.src('src/fonts/**/*')
+		.pipe(gulp.dest('build/fonts'))
 
-	var buildHtml = gulp.src('src/*.html')
-	.pipe(gulp.dest('build'));
+		var buildJs = gulp.src('src/js/script.js')
+		.pipe(gulp.dest('build/js'))
+
+		var buildHtml = gulp.src('src/*.html')
+		.pipe(gulp.dest('build'));
+
+		resolve();
+
+	});
 }
+
 
 /*Таски*/
 
