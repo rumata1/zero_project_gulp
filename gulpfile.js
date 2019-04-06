@@ -1,20 +1,20 @@
 const gulp = require('gulp'),
-      concat = require('gulp-concat'),
-      sass = require('gulp-sass'),
-      browserSync = require('browser-sync'),
-      autoprefixer = require('gulp-autoprefixer'),
-      del = require('del'),
-      uglify = require('gulp-uglify'),
+	  concat = require('gulp-concat'),
+	  sass = require('gulp-sass'),
+	  browserSync = require('browser-sync'),
+	  autoprefixer = require('gulp-autoprefixer'),
+	  del = require('del'),
+	  uglify = require('gulp-uglify'),
       cssnano = require('gulp-cssnano'),
       rename = require('gulp-rename'),
       imagemin = require('gulp-imagemin'),
-      pngquant = require('pngquant'),
-      cache = require('gulp-cache'),
+	  pngquant = require('imagemin-pngquant'),
+	  cache = require('gulp-cache'),
       cleanCSS = require('gulp-clean-css');
 
 //функции
 function clean(){
-	return del(['build/*']);
+	 return del(['build/*']);
 }
 
 function watch(){
@@ -27,8 +27,9 @@ function watch(){
     });
 	
 	gulp.watch('./src/*.html').on('change', browserSync.reload);
-	gulp.watch('./src/js/**/*.js').on('change', browserSync.reload);
 	gulp.watch('./src/sass/style.sass', gulp.series('sass'));
+	gulp.watch(['./src/js/libs/**/*.js','./src/js/plugins/**/*.js'], gulp.series('scripts'));
+	
 }
 
 function sass_style(){
@@ -48,10 +49,11 @@ function css_style(){
 }
 
 function js_scripts(){
-	return gulp.src(['./src/js/**/*.js'])
+	return gulp.src(['./src/js/libs/**/*.js','./src/js/plugins/**/*.js'])
 		.pipe(concat('script.js'))
 		.pipe(uglify())
-		.pipe(gulp.dest('src/js'));
+		.pipe(gulp.dest('./src/js'))
+		.pipe(browserSync.stream());
 }
 
 function img_min(){
@@ -65,22 +67,22 @@ function img_min(){
 		.pipe(gulp.dest('build/img'));	
 }
 
+
 function build_project(){
-	return new Promise((resolve,reject)=>{
-		let buildCss = gulp.src(['src/css/*.css'])
-		.pipe(gulp.dest('build/css'))
+	let buildCss = gulp.src([
+		'src/css/*.css'
+	])
+	
+	.pipe(gulp.dest('build/css'))
 
-		let buildFonts = gulp.src('src/fonts/**/*')
-		.pipe(gulp.dest('build/fonts'))
+	var buildFonts = gulp.src('src/fonts/**/*')
+	.pipe(gulp.dest('build/fonts'))
 
-		let buildJs = gulp.src('src/js/script.js')
-		.pipe(gulp.dest('build/js'))
+	var buildJs = gulp.src('src/js/**/*')
+	.pipe(gulp.dest('build/js'))
 
-		let buildHtml = gulp.src('src/*.html')
-		.pipe(gulp.dest('build'));
-
-		resolve();
-	});
+	var buildHtml = gulp.src('src/*.html')
+	.pipe(gulp.dest('build'));
 }
 
 /*Таски*/
@@ -94,6 +96,9 @@ gulp.task('clear', function () {
 })
 
 gulp.task('img', img_min);
+
 gulp.task('build', gulp.series('clean', 'styles', 'scripts', 'img', build_project));
 gulp.task('watch', watch);
+
 gulp.task('default', gulp.parallel(watch));
+

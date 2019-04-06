@@ -1,0 +1,87 @@
+html
+    font-size: 10px
+    font-family: 'PT Sans'
+    
+*:focus
+    outline: none
+*
+    border: none
+
+.hidden_content
+    position: relative
+    display: none
+
+.control-form  
+    max-width: 545px
+    display: block
+    //background: #eeeeee
+    margin: 0 auto 20px
+    padding: 1rem 4rem 4rem
+    border: 1px solid #eaeaea
+    box-sizing: border-box
+    box-shadow: 0px 2px 2px 0px rgba(50, 50, 50, 0.2)
+    &__input
+        position: relative
+        box-sizing: border-box
+        border: 1px #cbcbcb solid
+        padding: 0 1rem
+        margin-bottom: 1rem
+    label 
+        display: block
+        position: absolute
+        top: 50%
+        transform: translateY(-50%)
+        font-size: 1.2rem
+        transition: 0.4s
+        z-index: -1
+        &.small
+            color: grey
+            font-size: 1rem
+            top: 4px  
+    h5
+        font-size: 1.5rem
+        font-weight: bold
+        margin: 2rem 0
+        text-transform: uppercase
+    &__advantages
+        display: flex
+        justify-content: space-between
+        flex-wrap: wrap
+        box-sizing: border-box
+        background: orange
+        margin-bottom: 2rem
+    input[type=text]
+        font-size: 1.4rem
+        width: 100%
+        border: none
+        outline: none
+        background: none
+        height: 4rem
+        box-sizing: border-box
+        display: block
+        width: 100%
+    &__info
+        box-sizing: border-box
+        margin: 3rem 0 3rem
+        p
+            font-size: 1.4rem    
+    &__btn
+        padding: 1rem 2.4rem
+        color: #fff
+        font-size: 1.4rem
+        line-height: 2rem
+        font-weight: bold
+        background: #FFAF46
+        background: linear-gradient(to top, #ff8400, #FFAF46)
+
+    &__away
+        box-sizing: border-box
+        font-size: 1.4rem
+        line-height: 18px
+        margin: 0 10px 0 10px
+        color: #606060
+
+    &__protection
+        font-size: 1.4rem
+        position: relative
+        background: none   
